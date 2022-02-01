@@ -90,32 +90,23 @@ export const generateLineItems = (cartItems: CartItem[]) => {
 
 export const getTotalSalesTax = (cartItems: CartItem[]) => {
   const salesTaxTotal: number = cartItems.reduce((accumulator: number, cartItem: CartItem) => {
-    const salesTax: number = cartItem.taxFreeCategory ? 0 : cartItem.basePrice * 0.1;
+    let salesTax: number = cartItem.taxFreeCategory ? 0 : cartItem.basePrice * 0.1;
+    // On each item, round up the sales tax to the nearest five cents.
+    salesTax = Math.ceil(salesTax * 20) / 20;
     return accumulator + salesTax;
   }, 0)
 
   return salesTaxTotal
 }
 
-export const getTotalDuties = (cartItems: CartItem[]) => {
-  const dutiesTotal: number = cartItems.reduce((accumulator: number, cartItem: CartItem) => {
-    const duties: number = cartItem.imported ? cartItem.basePrice * 0.05 : 0;
-    return accumulator + duties;
-  }, 0)
-
-  return dutiesTotal
-}
-
 export const getTotal = (cartItems: CartItem[]) => {
   let total: number = cartItems.reduce((accumulator: number, cartItem: CartItem) => {
     const basePrice: number = cartItem.basePrice;
-    const salesTax: number = cartItem.taxFreeCategory ? 0 : basePrice * 0.10;
     const duty: number = cartItem.imported ? basePrice * 0.05 : 0;
-    return accumulator + basePrice + salesTax + duty;
+    return accumulator + basePrice + duty;
   }, 0)
 
-  // Round up to the nearest five cents.
-  total = Math.ceil(total * 20) / 20;
+  total = total + getTotalSalesTax(cartItems)
 
   return total;
 }

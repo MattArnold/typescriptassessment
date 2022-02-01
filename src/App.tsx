@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from 'react';
 import InputField from './components/InputField';
 import Receipt from './components/Receipt';
-import { CartItem, parseInput, generateLineItems, getTotalSalesTax, getTotalDuties, getTotal } from './controllers/ItemPriceController'
+import { CartItem, parseInput, generateLineItems, getTotalSalesTax, getTotal } from './controllers/ItemPriceController'
 import './App.css';
 
 const App: FC = () => {
@@ -9,7 +9,6 @@ const App: FC = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [lineItems, setLineItems] = useState<string[]>([]);
   const [totalSalesTax, setTotalSalesTax] = useState(0);
-  const [totalDuties, setTotalDuties] = useState(0);
   const [total, setTotal] = useState(0);
 
   const generateReceipt = () => {
@@ -21,9 +20,6 @@ const App: FC = () => {
 
     const generatedSalesTax: number = getTotalSalesTax(cartItems);
     setTotalSalesTax(generatedSalesTax);
-
-    const generatedDuties: number = getTotalDuties(cartItems);
-    setTotalDuties(generatedDuties);
 
     const generatedTotal: number = getTotal(cartItems);
     setTotal(generatedTotal);
