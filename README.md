@@ -1,12 +1,16 @@
-Assumptions:
+## Assumptions:
 
 If two items in the input have the same name, they will also be input with the same price.
 
 An item will always be input starting with the numeral 1; if there are multiples, they will be entered as different lines.
 
+## Design Explanation:
 
+I used this assessment to teach myself Typescript, which I have never used before. I usually write in a functional paradigm, but Typescript is not limited to a strictly Object-Oriented paradigm. Functional components in React are supported in Typescript with the `FC` type.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+The files with the relevant work are src/App.tsx, the src/controllers folder, and the src/components folder.
 
 ## Available Scripts
 
